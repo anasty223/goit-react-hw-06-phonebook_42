@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
-import { Input, Label, ButtonAdd } from "./Form.styles";
+import { Input, Label, ButtonAdd, Icon } from "./Form.styles";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addContacts } from "../../redux/action";
 import { toast, ToastContainer } from "react-toastify";
+import { AiFillFolderOpen } from "react-icons/ai";
 
 import { getContacts } from "../../redux/items-selector";
 
@@ -78,7 +79,12 @@ export default function Form() {
             value={number}
             onChange={handleInputChange}
           />
-          <ButtonAdd type="submit">Add contact</ButtonAdd>
+          <ButtonAdd type="submit">
+            Add contact
+            <Icon>
+              <AiFillFolderOpen size="1rem" />
+            </Icon>
+          </ButtonAdd>
         </Label>
       </form>
       <ToastContainer closeButton={false} />

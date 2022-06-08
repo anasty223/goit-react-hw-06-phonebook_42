@@ -21,7 +21,7 @@ export const Text = styled.p`
 export const ButtonDelete = styled.button`
   margin-left: auto;
   border-radius: 4px;
-  padding: 12px 24px;
+  padding: 12px;
   background-color: grey;
   color: white;
   border: none;
