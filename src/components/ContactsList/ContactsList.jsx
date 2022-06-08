@@ -2,34 +2,25 @@ import PropTypes from "prop-types";
 import { List, Item, Text, ButtonDelete } from "./ContactList.styles";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteContact } from "../../redux/action";
+import { getVisibleContacts } from "../../redux/items-selector";
+import ContactItem from "../ContactItem/ContactItem";
 
 function ContactsList() {
-  // const normalazedFilter = filter.toLowerCase();
-  // export const visibleContacts = contacts.filter((contact) =>
-  //   contact.name.toLowerCase().includes(normalazedFilter)
+  const contacts = useSelector(getVisibleContacts);
+  console.log("contacts", contacts);
 
-  const contacts = useSelector((state) => state.contacts);
-  console.log("constacts", contacts);
-  // const contact = {
-  //   id: nanoid(),
-  //   name,
-  //   number,
-  // };
-  // console.log(contact);
   const dispatch = useDispatch();
+
   return (
     <List>
       {contacts.map(({ id, name, number }) => (
-        <Item key={id}>
-          <Text>{name}</Text>
-          <Text>{number}</Text>
-          <ButtonDelete
-            type="submit"
-            onClick={() => dispatch(deleteContact(id))}
-          >
-            Delete
-          </ButtonDelete>
-        </Item>
+        <ContactItem
+          key={id}
+          id={id}
+          name={name}
+          number={number}
+          onDeleteContact={(id) => dispatch(deleteContact(id))}
+        />
       ))}
     </List>
   );

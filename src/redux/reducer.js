@@ -1,6 +1,6 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { createReducer, combineReducers } from "@reduxjs/toolkit";
 
-import { addContacts, deleteContact } from "./action";
+import { addContacts, deleteContact, changeFilter } from "./action";
 
 const initialState = [
   { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
@@ -9,8 +9,16 @@ const initialState = [
   { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
 ];
 
-export const todoReducer = createReducer(initialState, {
+const todoReducer = createReducer(initialState, {
   [addContacts]: (state, { payload }) => [payload, ...state],
   [deleteContact]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
+});
+
+const filterReducer = createReducer("", {
+  [changeFilter]: (_, { payload }) => payload,
+});
+export default combineReducers({
+  todoReducer,
+  filterReducer,
 });

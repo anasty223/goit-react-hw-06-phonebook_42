@@ -3,12 +3,13 @@ import { Input, Label, ButtonAdd } from "./Form.styles";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addContacts } from "../../redux/action";
-import { ToastContainer, toast } from "react-toastify";
-import { nanoid } from "nanoid";
+import { toast, ToastContainer } from "react-toastify";
+
+import { getContacts } from "../../redux/items-selector";
 
 export default function Form() {
-  const add = useSelector((state) => state.contacts);
-  console.log("add", add);
+  const contacts = useSelector(getContacts);
+  console.log("contacts", contacts);
   const dispatch = useDispatch();
 
   const [name, setName] = useState("");
@@ -33,17 +34,17 @@ export default function Form() {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    const ReturnName = add.find((contact) => contact.name === name);
-    if (ReturnName) {
-      toast.warn("This name is already in the phone book ");
+    const returnName = contacts.find((contact) => contact.name === name);
+    if (returnName) {
+      toast.warn("This name is already in the phonebook ");
     } else {
-      const contact = {
-        id: nanoid(),
-        name,
-        number,
-      };
       // console.log("contact------------------------", contact);
-      dispatch(addContacts(contact));
+
+      dispatch(addContacts({ name, number }));
+
+      toast(({ data }) => `Added ${name} in Phonebook`, {
+        data: "world",
+      });
     }
 
     setName("");
@@ -80,6 +81,7 @@ export default function Form() {
           <ButtonAdd type="submit">Add contact</ButtonAdd>
         </Label>
       </form>
+      <ToastContainer closeButton={false} />
     </>
   );
 }
