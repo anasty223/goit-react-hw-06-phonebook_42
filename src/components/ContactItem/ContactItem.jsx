@@ -1,5 +1,6 @@
 import { Item, ButtonDelete } from "./ContactItem.styles";
 import { AiFillDelete } from "react-icons/ai";
+import PropTypes from "prop-types";
 
 function ContactItem({ name, number, onDeleteContact, id }) {
   return (
@@ -14,3 +15,10 @@ function ContactItem({ name, number, onDeleteContact, id }) {
   );
 }
 export default ContactItem;
+
+ContactItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string,
+  onDeleteContact: PropTypes.func.isRequired,
+  id: PropTypes.string,
+};
